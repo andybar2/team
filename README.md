@@ -47,8 +47,20 @@ team-env set --env=development --var=DEBUG --val=1
 team-env get --env=development --var=DEBUG
 ```
 
-### Get all the variables and their values, and set them in your environment:
+### Delete variable:
 
 ```bash
-# TODO
+team-env del --env=development --var=DEBUG
+```
+
+### Print all variables for an environment:
+
+```bash
+team-env print --env=development
+```
+
+### Configure your local environment with the values of the variables in the remote store:
+
+```bash
+export $(team-env print --env=development)
 ```
