@@ -1,6 +1,8 @@
 # team-env
 
-Store environment variables remotely and share them with your team.
+Save your project environment variables in a remote store and easily share them with your team, instead of having to store them in your project repository.
+
+This allows you to share the source code of your project without sharing secrets, API keys, etc.
 
 Currently only the `ssm` remote store is supported, but the package can be easily extended for adding more stores in the future.
 
