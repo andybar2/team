@@ -33,5 +33,5 @@ func runPrintCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	return variablesStore.Print(getParams.Environment)
+	return variablesStore.Print(printParams.Environment)
 }
