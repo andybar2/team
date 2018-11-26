@@ -1,12 +1,12 @@
 # team
 
-Save your project configuration (environment variables, configuration files, etc) in a remote store and easily share it with your team, instead of having to store it inside your project repository.
+Save your project configuration (environment variables, configuration files, etc) in a remote store and easily share it with your team instead of having to store it inside your project repository.
 
 This allows you to securely share the source code of your project without including secrets, API keys, service account files, etc.
 
-Currently only the `aws` remote store is supported, but the package can be easily extended for adding more stores in the future.
+Currently only the `aws` remote store is supported, but the package can be extended for adding more stores in the future.
 
-- `aws`: Stores project configuration in your AWS account. Environment variables are stored in the [SSM Parameters Store](https://docs.aws.amazon.com/es_es/systems-manager/latest/userguide/systems-manager-paramstore.html), and files are stored in [S3](https://docs.aws.amazon.com/s3/index.html#lang/es_es).
+- `aws`: Stores project configuration in your AWS account. Environment variables are stored in the [SSM Parameters Store](https://docs.aws.amazon.com/es_es/systems-manager/latest/userguide/systems-manager-paramstore.html), and files are stored in [S3](https://docs.aws.amazon.com/s3/index.html).
 
 ## Installation:
 
@@ -65,4 +65,10 @@ team env print -s "development"
 
 ```bash
 export $(team env print -s "development")
+```
+
+### Import the environment variables in the remote store to a local `.env` file:
+
+```bash
+team env print -s "development" > .env
 ```
