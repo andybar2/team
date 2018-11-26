@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-// Config parameters
+// Config parameters from the configuration file
 type Config struct {
 	Store      string `json:"store"`
 	Project    string `json:"project"`
@@ -14,17 +14,17 @@ type Config struct {
 	AWSRegion  string `json:"aws_region"`
 }
 
-// ReadConfig reads the configuration from the given path
-func ReadConfig(path string) (*Config, error) {
-	b, err := ioutil.ReadFile(path)
+// ReadConfig reads the team configuration
+func ReadConfig() (*Config, error) {
+	b, err := ioutil.ReadFile("team.json")
 	if err != nil {
-		return nil, errors.New("could not read config file")
+		return nil, errors.New("could not read team.json file")
 	}
 
 	c := &Config{}
 
 	if err := json.Unmarshal(b, c); err != nil {
-		return nil, errors.New("could not parse config file")
+		return nil, errors.New("could not parse team.json file")
 	}
 
 	return c, nil

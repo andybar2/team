@@ -1,17 +1,19 @@
 package cmd
 
 import (
+	"github.com/andybar2/team/cmd/env"
 	"github.com/spf13/cobra"
 )
 
-const configFile = "team-env.json"
-
-var rootCmd = &cobra.Command{
-	Use:   "team-env [command]",
-	Short: "Store environment variables remotely and share them with your team",
+// RootCmd is the root command
+var RootCmd = &cobra.Command{
+	Use:   "team [command]",
+	Short: "Store project configuration remotely and easily share it with your team",
 }
 
 // Execute runs the root command
 func Execute() error {
-	return rootCmd.Execute()
+	RootCmd.AddCommand(env.EnvCmd)
+
+	return RootCmd.Execute()
 }

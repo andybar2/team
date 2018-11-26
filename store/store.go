@@ -4,21 +4,31 @@ import (
 	"errors"
 	"os"
 
-	"github.com/andybar2/team-env/config"
-	"github.com/andybar2/team-env/store/ssm"
+	"github.com/andybar2/team/config"
+	"github.com/andybar2/team/store/aws"
 )
 
-// IStore is the interface implemented by the specific variables stores
+// IStore is the interface that should be implemented by the specific stores
 type IStore interface {
-	Set(environment, variable, value string) error
-	Get(environment, variable string) (string, error)
-	Del(environment, variable string) error
-	Print(environment string) error
+	// EnvSet sets the value of an enviroment variable for the given stage
+	EnvSet(stage, name, value string) error
+
+	// EnvGet gets the current value of an enviroment variable for the given stage
+	EnvGet(stage, name string) (string, error)
+
+	// EnvDel deletes an environment variable from the given stage
+	EnvDel(stage, name string) error
+
+	// EnvPrint prints all the environment variables and their values for the given stage
+	EnvPrint(stage string) error
+
+	// Files management
+	// TODO
 }
 
 // New reads the app configuration from the given file and sets up the corresponding store
-func New(configFile string) (IStore, error) {
-	appConfig, err := config.ReadConfig(configFile)
+func New() (IStore, error) {
+	appConfig, err := config.ReadConfig()
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +38,7 @@ func New(configFile string) (IStore, error) {
 	}
 
 	switch appConfig.Store {
-	case "ssm":
+	case "aws":
 		if appConfig.AWSProfile == "" {
 			return nil, errors.New("invalid aws profile")
 		}
@@ -40,7 +50,7 @@ func New(configFile string) (IStore, error) {
 		os.Setenv("AWS_PROFILE", appConfig.AWSProfile)
 		os.Setenv("AWS_REGION", appConfig.AWSRegion)
 
-		return ssm.NewStore(appConfig.Project)
+		return aws.NewStore(appConfig.Project)
 	default:
 		return nil, errors.New("unsupported store")
 	}

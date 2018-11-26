@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/andybar2/team-env/cmd"
+	"github.com/andybar2/team/cmd"
 )
 
 func main() {
