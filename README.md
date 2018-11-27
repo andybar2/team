@@ -6,7 +6,7 @@ This allows you to securely share the source code of your project without includ
 
 Currently only the `aws` remote store is supported, but the package can be extended for adding more stores in the future.
 
-- `aws`: Stores project configuration in your AWS account. Environment variables are stored in the [SSM Parameters Store](https://docs.aws.amazon.com/es_es/systems-manager/latest/userguide/systems-manager-paramstore.html), and files are stored in [S3](https://docs.aws.amazon.com/s3/index.html).
+- `aws`: Stores project configuration in your AWS account. Environment variables are stored in the [SSM Parameters Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html), and files are stored in [S3](https://docs.aws.amazon.com/s3/index.html).
 
 ## Installation:
 
