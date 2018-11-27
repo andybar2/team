@@ -39,5 +39,5 @@ func runDelCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	return s.EnvDel(delParams.Stage, delParams.Name)
+	return s.EnvDelete(delParams.Stage, delParams.Name)
 }

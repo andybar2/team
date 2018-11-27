@@ -2,9 +2,11 @@ package config
 
 import (
 	"encoding/json"
-	"errors"
+	"fmt"
 	"io/ioutil"
 )
+
+const configFile = "team.json"
 
 // Config parameters from the configuration file
 type Config struct {
@@ -16,15 +18,15 @@ type Config struct {
 
 // ReadConfig reads the team configuration
 func ReadConfig() (*Config, error) {
-	b, err := ioutil.ReadFile("team.json")
+	b, err := ioutil.ReadFile(configFile)
 	if err != nil {
-		return nil, errors.New("could not read team.json file")
+		return nil, fmt.Errorf("could not read %s file", configFile)
 	}
 
 	c := &Config{}
 
 	if err := json.Unmarshal(b, c); err != nil {
-		return nil, errors.New("could not parse team.json file")
+		return nil, fmt.Errorf("could not parse %s file", configFile)
 	}
 
 	return c, nil

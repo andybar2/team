@@ -36,8 +36,8 @@ func (s *Store) EnvGet(stage, name string) (string, error) {
 	return aws.StringValue(output.Parameter.Value), nil
 }
 
-// EnvDel deletes an environment variable from the given stage
-func (s *Store) EnvDel(stage, name string) error {
+// EnvDelete deletes an environment variable from the given stage
+func (s *Store) EnvDelete(stage, name string) error {
 	parameter := s.getParameterName(stage, name)
 
 	_, err := s.ssmSession.DeleteParameter(&ssm.DeleteParameterInput{

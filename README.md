@@ -55,19 +55,19 @@ team env get -s "development" -n "STRIPE_API_KEY"
 team env del -s "development" -n "STRIPE_API_KEY"
 ```
 
-### Print all variables for an environment:
+### Print all variables for a stage:
 
 ```bash
 team env print -s "development"
 ```
 
-### Configure your local environment with the values of the variables in the remote store:
+### Configure your local environment with all the variables in a stage:
 
 ```bash
 export $(team env print -s "development")
 ```
 
-### Import the environment variables in the remote store to a local `.env` file:
+### Import all the environment variables on a stage to a local `.env` file:
 
 ```bash
 team env print -s "development" > .env

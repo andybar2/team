@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/andybar2/team/cmd/env"
+	"github.com/andybar2/team/cmd/file"
 	"github.com/spf13/cobra"
 )
 
@@ -14,6 +15,7 @@ var RootCmd = &cobra.Command{
 // Execute runs the root command
 func Execute() error {
 	RootCmd.AddCommand(env.EnvCmd)
+	RootCmd.AddCommand(file.FileCmd)
 
 	return RootCmd.Execute()
 }

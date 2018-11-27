@@ -16,14 +16,21 @@ type IStore interface {
 	// EnvGet gets the current value of an enviroment variable for the given stage
 	EnvGet(stage, name string) (string, error)
 
-	// EnvDel deletes an environment variable from the given stage
-	EnvDel(stage, name string) error
+	// EnvDelete deletes an environment variable from the given stage
+	EnvDelete(stage, name string) error
 
 	// EnvPrint prints all the environment variables and their values for the given stage
 	EnvPrint(stage string) error
 
-	// Files management
-	// TODO
+	// FileUpload uploads a file to the given stage
+	FileUpload(stage, name, filePath string) error
+
+	// FileDownload downloads a file from the given stage
+	FileDownload(stage, name, filePath string) error
+
+	// TODO:
+	// FileDownloadAll
+	// FileDel
 }
 
 // New reads the app configuration from the given file and sets up the corresponding store
@@ -50,7 +57,7 @@ func New() (IStore, error) {
 		os.Setenv("AWS_PROFILE", appConfig.AWSProfile)
 		os.Setenv("AWS_REGION", appConfig.AWSRegion)
 
-		return aws.NewStore(appConfig.Project)
+		return aws.NewStore(appConfig.Project, appConfig.AWSRegion)
 	default:
 		return nil, errors.New("unsupported store")
 	}
