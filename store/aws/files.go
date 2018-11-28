@@ -2,9 +2,11 @@ package aws
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -14,7 +16,7 @@ import (
 )
 
 // FileUpload uploads a file to the given stage
-func (s *Store) FileUpload(stage, name, filePath string) error {
+func (s *Store) FileUpload(stage, filePath string) error {
 	// get bucket name
 	bucketName, err := s.getBucketName()
 	if err != nil {
@@ -39,6 +41,10 @@ func (s *Store) FileUpload(stage, name, filePath string) error {
 		return err
 	}
 
+	if fileInfo.IsDir() {
+		return errors.New("file path can't be a directory")
+	}
+
 	size := fileInfo.Size()
 	buffer := make([]byte, size)
 
@@ -48,7 +54,8 @@ func (s *Store) FileUpload(stage, name, filePath string) error {
 	}
 
 	// upload file
-	fileKey := s.getFileKey(stage, name)
+	fileName := path.Base(filePath)
+	fileKey := s.getFileKey(stage, fileName)
 
 	_, err = s.s3Uploader.Upload(&s3manager.UploadInput{
 		Bucket:      aws.String(bucketName),
@@ -62,7 +69,7 @@ func (s *Store) FileUpload(stage, name, filePath string) error {
 }
 
 // FileDownload downloads a file from the given stage
-func (s *Store) FileDownload(stage, name, filePath string) error {
+func (s *Store) FileDownload(stage, filePath string) error {
 	// get bucket name
 	bucketName, err := s.getBucketName()
 	if err != nil {
@@ -82,7 +89,8 @@ func (s *Store) FileDownload(stage, name, filePath string) error {
 	defer file.Close()
 
 	// download file
-	fileKey := s.getFileKey(stage, name)
+	fileName := path.Base(filePath)
+	fileKey := s.getFileKey(stage, fileName)
 
 	_, err = s.s3Downloader.Download(file, &s3.GetObjectInput{
 		Bucket: aws.String(bucketName),

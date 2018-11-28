@@ -1,4 +1,4 @@
-package file
+package files
 
 import (
 	"errors"
@@ -9,7 +9,6 @@ import (
 
 var uploadParams struct {
 	Stage string
-	Name  string
 	Path  string
 }
 
@@ -21,19 +20,14 @@ var uploadCmd = &cobra.Command{
 
 func init() {
 	uploadCmd.Flags().StringVarP(&uploadParams.Stage, "stage", "s", "", "Stage name")
-	uploadCmd.Flags().StringVarP(&uploadParams.Name, "name", "n", "", "File name")
 	uploadCmd.Flags().StringVarP(&uploadParams.Path, "path", "p", "", "File path")
 
-	FileCmd.AddCommand(uploadCmd)
+	FilesCmd.AddCommand(uploadCmd)
 }
 
 func runUploadCmd(cmd *cobra.Command, args []string) error {
 	if uploadParams.Stage == "" {
 		return errors.New("invalid stage name")
-	}
-
-	if uploadParams.Name == "" {
-		return errors.New("invalid file name")
 	}
 
 	if uploadParams.Path == "" {
@@ -45,5 +39,5 @@ func runUploadCmd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	return s.FileUpload(uploadParams.Stage, uploadParams.Name, uploadParams.Path)
+	return s.FileUpload(uploadParams.Stage, uploadParams.Path)
 }

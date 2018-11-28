@@ -23,10 +23,10 @@ type IStore interface {
 	EnvPrint(stage string) error
 
 	// FileUpload uploads a file to the given stage
-	FileUpload(stage, name, filePath string) error
+	FileUpload(stage, filePath string) error
 
 	// FileDownload downloads a file from the given stage
-	FileDownload(stage, name, filePath string) error
+	FileDownload(stage, filePath string) error
 
 	// TODO:
 	// FileDownloadAll

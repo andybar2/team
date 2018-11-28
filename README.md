@@ -67,8 +67,25 @@ team env print -s "development"
 export $(team env print -s "development")
 ```
 
-### Import all the environment variables on a stage to a local `.env` file:
+### Import all the environment variables on a stage to a local file:
 
 ```bash
-team env print -s "development" > .env
+mkdir -p .team/development
+team env print -s "development" > .team/development/env
+```
+
+**Tip**: Add `.team` to your `.gitignore` file :)
+
+## Manage configuration files:
+
+### Upload file:
+
+```bash
+team files upload -s "development" -p ".team/development/google-service-account.json"
+```
+
+### Download file:
+
+```bash
+team files download -s "development" -p ".team/development/google-service-account.json"
 ```
