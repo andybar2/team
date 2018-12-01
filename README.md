@@ -52,7 +52,7 @@ team env get -s "development" -n "STRIPE_API_KEY"
 ### Delete variable:
 
 ```bash
-team env del -s "development" -n "STRIPE_API_KEY"
+team env delete -s "development" -n "STRIPE_API_KEY"
 ```
 
 ### Print all variables for a stage:
@@ -88,4 +88,16 @@ team files upload -s "development" -p ".team/development/google-service-account.
 
 ```bash
 team files download -s "development" -p ".team/development/google-service-account.json"
+```
+
+### Delete file:
+
+```bash
+team files delete -s "development" -p ".team/development/google-service-account.json"
+```
+
+### List all files in a stage:
+
+```bash
+team files list -s "development"
 ```

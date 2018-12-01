@@ -28,9 +28,11 @@ type IStore interface {
 	// FileDownload downloads a file from the given stage
 	FileDownload(stage, filePath string) error
 
-	// TODO:
-	// FileDownloadAll
-	// FileDel
+	// FileDelete deletes a file from the given stage
+	FileDelete(stage, filePath string) error
+
+	// FileList lists all the files in a stage
+	FileList(stage string) error
 }
 
 // New reads the app configuration from the given file and sets up the corresponding store
